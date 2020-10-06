@@ -17,3 +17,5 @@ var seattle = {
         this.customersEachHour.push(randomNumber);
     }
 }
+
+seattle.generateCustomersEachHour();
