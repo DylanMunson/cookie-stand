@@ -10,40 +10,36 @@ var seattle = {
     cookiesSoldEachHour: [],
 
     generateCustomersEachHour: function(){
-        for(var i=0; i<hours.length; i++){
+        for(var i=0; i<hours.length; i++);{
             var randomNumber =  Math.floor(Math.random() * (this.maxCustomersPerHour - this.minCustomersPerHour + 1) + this.minCustomersPerHour);
             this.customersEachHour.push(randomNumber);
-    }
-},
+        }
+    },
 
     generateCookiesSoldEachHour: function(){
-         this.generateCustomersEachHour();
+        this.generateCustomersEachHour();
 
-         for(var i=0; i<hours.length; i++){
+        for(var i=0; i<hours.length; i++);{
             var cookiesSoldThisHour = Math.ceil(this.customersEachHour[i] * this.averageCookiesPerCustomer);
             this.totalCookiesForTheDay += cookiesSoldThisHour;
             this.cookiesSoldEachHour.push(cookiesSoldThisHour);
         }
-     },
-
-     render: function(){
-         var parentSection = document.getElementById('seattle');
-
-         var headingSeattle = document.createElement('h2');
-
-         headingSeattle.textContent = this.name;
-
-         parentSection.appendChild(headingSeattle);
-
-         var salesList = document.getElementById('seattle-sales');
-
-         for(var i=0; i<this.cookiesSoldEachHour.length; i++){
-             var liElement = document.createElement('li');
-             liElement.textContent = `${hours[i]}: ${this.cookiesSoldEachHour[i]} cookies`;
-             salesList.appendChild(liElement);
-         }
-     }
+     }, 
 }
+    var parentElement = document.getElementById('table');
 
+    function generateHeaderRow(){
+        var trElement = document.createElement('tr');
+
+        var headerArray = [hours];
+
+        for(var i=0; i<headerArray.length; i++){
+            var thElement = document.createElement('th');
+            thElement.textContent = headerArray[i];
+            trElement.appendChild(thElement);
+        }
+    parentElement.appendChild(trElement);
+    }
+  
+generateHeaderRow();
 seattle.generateCookiesSoldEachHour();
-seattle.render();
