@@ -30,19 +30,18 @@ SalesLocation.prototype.generateHourlyCookies = function () {
 }
 
 SalesLocation.prototype.render = function(){
-  var tableRowElement = document.createElement('tr');
-  var tableHeader = document.createElement('th');
-  tableHeader.textContent = this.name;
-  tableRowElement.appendChild(tableHeader);
-
-  for(var i=0; i<this.totalCookiesPerHour.length; i++){
-    var totalCookiesData = document.createElement('td');
-    totalCookiesData.textContent = this.totalCookiesPerHour[i];
-    tableRowElement.appendChild(totalCookiesData);
-  }
-  parentElement.appendChild(tableRowElement);
+    var tableRowElement = document.createElement('tr');
+    var tableHeader = document.createElement('th');
+    tableHeader.textContent = this.name;
+    tableRowElement.appendChild(tableHeader);
+    
+    for(var i=0; i<this.totalCookiesPerHour.length; i++){
+        var totalCookiesData = document.createElement('td');
+        totalCookiesData.textContent = this.totalCookiesPerHour[i];
+        tableRowElement.appendChild(totalCookiesData);
+    }
+    parentElement.appendChild(tableRowElement);
 }
-
 
 new SalesLocation('seattle', 23, 65, 6.3);
 new SalesLocation('Tokyo', 3, 24, 1.2);
@@ -64,12 +63,36 @@ function headerRow() {
   parentElement.appendChild(trElement);
 }
 
+function generateFooterRow(){
+  var totalOfallTotal = 0;
+  var hourlyTotalsArray = [];
+  var trElement = document.createElement('tr');
+
+  for(var i=0; i<headerArrayHours.length; i++){
+  
+    var hourlyCookieSales = 0;
+
+    for(var j=0; j<cookieLocations.length; j++){
+      hourlyCookieSales += cookielocations[j].totalCookiesPerHour[i]
+      totalOfallTotal += cookieLocations[j].totalCookiesPerHour[i]
+    }
+
+    hourlyTotalsArray.push(hourlyCookieSales);
+
+  }
+  for(var k=0; k<hourlyTotalsArray.length; k++){
+    var tdElement = document.createElement('td');
+    tdElement.textContent = hourlyTotalsArray[k];
+    trElement.appendChild(tdElement);
+  }
+  parentElement.appendChild(trElement);
+}
+
 headerRow();
 for(var i=0; i<cookieLocations.length; i++){
   cookieLocations[i].generateHourlyCookies();
   cookieLocations[i].render();
 }
-
 
 // var hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
 
